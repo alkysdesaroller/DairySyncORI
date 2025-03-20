@@ -12,7 +12,7 @@ Password varchar(255) not null
 
 /*Entidad Granja*/
 create table Granja(
-Id int primary key, 
+Id int primary key auto_increment, 
 Direccion varchar(255), 
 cantidadAnminal varchar(255), 
 granjeroId int, 
