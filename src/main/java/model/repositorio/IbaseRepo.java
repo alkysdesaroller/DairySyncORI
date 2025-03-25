@@ -11,7 +11,7 @@ import utils.DatabaseConnection;
  *
  * @author alna7
  */
-public class IbaseRepo<T> {
+public class IbaseRepo<T> implements  IBaseInterface{
     private final String tabla;
     private final String[ ] columnas; 
     private final Mapper<T> mapper;
@@ -26,7 +26,7 @@ public class IbaseRepo<T> {
         this.mapper = mapper;
        }       
         
-        
+        @Override 
     // Método para guardar un objeto en la base de datos
     public void guardar(T entidad, String sqlInsert) {
         try (Connection conn = DatabaseConnection.getConnection();
