@@ -27,7 +27,7 @@ public class IbaseRepo<T> {
        }       
         
         
-    // Método para guardar un objeto en la base de datos
+    // Metodo para guardar un objeto en la base de datos
     public void guardar(T entidad, String sqlInsert) {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sqlInsert)) {
@@ -38,7 +38,7 @@ public class IbaseRepo<T> {
         }
     }
     
-      // Método para obtener un objeto por su ID
+      // Metodo para obtener un objeto por su ID
     public T obtenerPorId(int id) {
         String sql = "SELECT * FROM " + tabla + " WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -54,7 +54,7 @@ public class IbaseRepo<T> {
         return null;
     }
     
-    // Método para obtener todos los objetos de la tabla
+    // Metodo para obtener todos los objetos de la tabla
     public List<T> obtenerTodos() {
         List<T> entidades = new ArrayList<>();
         String sql = "SELECT * FROM " + tabla;
@@ -70,7 +70,7 @@ public class IbaseRepo<T> {
         return entidades;
     }
     
-// Método para actualizar un objeto en la base de datos
+    // Metodo para actualizar un objeto en la base de datos
     public void actualizar(T entidad, String sqlUpdate) {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sqlUpdate)) {
@@ -80,7 +80,7 @@ public class IbaseRepo<T> {
             e.printStackTrace();
         }
     }
-      // Método para eliminar un objeto por su ID
+    // M3todo para eliminar un objeto por su ID
     public void eliminar(int id) {
         String sql = "DELETE FROM " + tabla + " WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();

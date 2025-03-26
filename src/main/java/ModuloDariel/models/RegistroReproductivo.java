@@ -18,7 +18,7 @@ public class RegistroReproductivo {
     public RegistroReproductivo(int id, LocalDate fechaInseminacion, LocalDate fechaParto, Vaca.EstadoReproductivo estado, int madreId, int padreId, int vacaId) {
         this.id = id;
         this.fechaInseminacion = fechaInseminacion;
-        this.fechaParto = fechaParto;
+        this.fechaParto = fechaParto; //Puede ser null
         this.estado = estado;
         this.madreId = madreId;
         this.padreId = padreId;

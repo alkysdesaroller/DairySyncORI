@@ -2,85 +2,75 @@ package ModuloDariel.usecase;
 
 import ModuloDariel.models.RegistroReproductivo;
 import ModuloDariel.models.Vaca;
+import ModuloDariel.repo.RegistroReproductivoRepo;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 /**
  *
  * @author darie
  */
 public class RegistroReproductivoServicio {
-    // Lista para almacenar los registros
-    private List<RegistroReproductivo> registrosReproductivos; 
+    private final RegistroReproductivoRepo registroReprRepo;
 
-    // Constructor
-    public RegistroReproductivoServicio() {
-        this.registrosReproductivos = new ArrayList<>();
+    public RegistroReproductivoServicio(RegistroReproductivoRepo registroRepo) {
+        this.registroReprRepo = registroRepo;
     }
-    
-    // Metodo para crear un nuevo registro reproductivo
-    public void crearRegistroReproductivo(int id, LocalDate fechaInseminacion, LocalDate fechaParto, Vaca.EstadoReproductivo estado, int madreId, int padreId, int vacaId) {
-        RegistroReproductivo registro = new RegistroReproductivo(id, fechaInseminacion, fechaParto, estado, madreId, padreId, vacaId);
-        registrosReproductivos.add(registro);
-        System.out.println("Registro reproductivo creado: " + registro);
+
+    public void crearRegistroReproductivo(LocalDate fechaInseminacion,Vaca.EstadoReproductivo estado,int madreId, int padreId, int vacaId) {
+        RegistroReproductivo registro = new RegistroReproductivo(
+            0, // ID será generado por la BD
+            fechaInseminacion,
+            null, // fechaParto inicialmente null
+            estado,
+            madreId,
+            padreId,
+            vacaId
+        );
+        registroReprRepo.guardar(registro);
     }
-    
-    // Metodo para actualizar el estado de un registro reproductivo
+
     public void actualizarEstadoReproductivo(int id, Vaca.EstadoReproductivo nuevoEstado) {
-        RegistroReproductivo registro = buscarRegistroPorId(id);
-        if (registro != null) {
+        Optional<RegistroReproductivo> registroOpt = registroReprRepo.obtenerPorId(id);
+        registroOpt.ifPresent(registro -> {
             registro.setEstado(nuevoEstado);
-            System.out.println("Estado del registro reproductivo actualizado: " + registro);
-        } else {
-            System.out.println("Registro reproductivo no encontrado con ID: " + id);
-        }
+            registroReprRepo.actualizar(registro);
+        });
     }
-      // Metodo para actualizar la fecha de parto de un registro reproductivo
+
     public void actualizarFechaParto(int id, LocalDate nuevaFechaParto) {
-        RegistroReproductivo registro = buscarRegistroPorId(id);
-        if (registro != null) {
+        Optional<RegistroReproductivo> registroOpt = registroReprRepo.obtenerPorId(id);
+        registroOpt.ifPresent(registro -> {
             registro.setFechaParto(nuevaFechaParto);
-            System.out.println("Fecha de parto actualizada: " + registro);
-        } else {
-            System.out.println("Registro reproductivo no encontrado con ID: " + id);
-        }
+            registroReprRepo.actualizar(registro);
+        });
     }
 
-    // Metod para eliminar un registro reproductivo
     public void eliminarRegistroReproductivo(int id) {
-        RegistroReproductivo registro = buscarRegistroPorId(id);
-        if (registro != null) {
-            registrosReproductivos.remove(registro);
-            System.out.println("Registro reproductivo eliminado: " + registro);
-        } else {
-            System.out.println("Registro reproductivo no encontrado con ID: " + id);
-        }
+        registroReprRepo.eliminar(id);
     }
 
-    // Metodo para buscar un registro reproductivo por su ID
-    public RegistroReproductivo buscarRegistroPorId(int id) {
-        for (RegistroReproductivo registro : registrosReproductivos) {
-            if (registro.getId() == id) {
-                return registro;
-            }
-        }
-        return null; // Retorna null si no se encuentra el registro
+    public Optional<RegistroReproductivo> buscarRegistroPorId(int id) {
+        return registroReprRepo.obtenerPorId(id);
     }
 
-    // Mtodo para obtener todos los registros reproductivos
     public List<RegistroReproductivo> obtenerTodosLosRegistros() {
-        return registrosReproductivos;
+        return registroReprRepo.obtenerTodos();
     }
 
-    // Metodo para mostrar todos los registros reproductivos
+    public List<RegistroReproductivo> obtenerRegistrosPorVaca(int vacaId) {
+        return registroReprRepo.obtenerPorVacaId(vacaId);
+    }
+
     public void mostrarTodosLosRegistros() {
-        if (registrosReproductivos.isEmpty()) {
+        List<RegistroReproductivo> registros = registroReprRepo.obtenerTodos();
+        if (registros.isEmpty()) {
             System.out.println("No hay registros reproductivos.");
         } else {
-            System.out.println("Lista de registros reproductivos:");
-            for (RegistroReproductivo registro : registrosReproductivos) {
-                System.out.println(registro);
-            }
+            registros.forEach(registro -> 
+                System.out.println(registro.infoReproduccion())
+            );
         }
     }
 }
