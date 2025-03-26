@@ -59,6 +59,7 @@ foreign key (VacaId) references Vaca(Id),
 foreign key (grajaId) references Granjas(Id)
 );
 
+/*Entidad de Reproduccion*/
 create table reproduccion(
 Id int primary key auto_increment, 
 fechaInseminacion date not null, 
