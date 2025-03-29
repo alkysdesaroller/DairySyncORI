@@ -4,16 +4,22 @@
  */
 package utils;
 
+import java.net.URL;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
  * @author alna7
  */
 public class DatabaseConnection {
-
-    public static Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
+    private static final String url =  "jdbc:mysql://localhost:3306/DairySync";
+    private static final String user = "root";
+    private static final String password = "1234567";
+     public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(url, user, password);
+    }
+ 
 }

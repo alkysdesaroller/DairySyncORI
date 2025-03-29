@@ -13,6 +13,7 @@ public class Granja {
     private int granjeroId; 
     
     
+    public Granja() {}//Constructor vacio
     
     // Constructor para el objro Granja 
     public Granja(int id, String direccion, int cantidadAnimal, int granjeroId) {
@@ -21,6 +22,7 @@ public class Granja {
         this.cantidadAnimal = cantidadAnimal;
         this.granjeroId = granjeroId;
     }
+
 
     // Getters y Setters
     public int getId() {
@@ -57,5 +59,7 @@ public class Granja {
     public void setGranjeroId(int granjeroId) {
         this.granjeroId = granjeroId;
     }
+
+    public void setcantidadAnimal(String string) {  }
 }
 

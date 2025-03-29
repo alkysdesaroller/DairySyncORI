@@ -14,6 +14,8 @@ public class ProduccionDiaria {
     private int vacaId;
     private int granjaId; 
     
+    public ProduccionDiaria() {}
+    
    //Constructor para la ProduccionDiaria
     public ProduccionDiaria(int id, LocalDate fecha, double litros, int vacaId, int granjaId){
     this.id = id; 
@@ -22,11 +24,13 @@ public class ProduccionDiaria {
     this.vacaId = vacaId; 
     this.granjaId = granjaId;
     }
+
     
         // Getters y Setters
     public int getId(int id){
     return id;
     }
+    public void setId(int aInt) { }
     
     public LocalDate getFecha() {
         return fecha;
@@ -59,5 +63,7 @@ public class ProduccionDiaria {
     public void setGranjaId(int granjaId) {
         this.granjaId = granjaId;
     }
+
+
 
 }
