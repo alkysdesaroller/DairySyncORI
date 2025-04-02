@@ -18,8 +18,8 @@ public class RegistroSaludRepo implements IBaseInterface<RegistroSalud, Integer>
     private final IbaseRepo<RegistroSalud> baseRepo;
 
     public RegistroSaludRepo() {
-        String[] columnas = {"id", "vacaId", "fecha", "estadoSalud", "descripcion", "tratamiento"};
-        this.baseRepo = new IbaseRepo<>("registros_salud", columnas, new MapperRegistroSalud());
+        String[] columnas = {"id", "vaca_id", "fecha", "estado_salud", "descripcion", "tratamiento"};
+        this.baseRepo = new IbaseRepo<>("registro_salud", columnas, new MapperRegistroSalud());
     }
 
     private static class MapperRegistroSalud implements IbaseRepo.Mapper<RegistroSalud> {
@@ -27,9 +27,9 @@ public class RegistroSaludRepo implements IBaseInterface<RegistroSalud, Integer>
         public RegistroSalud map(ResultSet rs) throws SQLException {
             return new RegistroSalud(
                 rs.getInt("id"),
-                rs.getInt("vacaId"),
+                rs.getInt("vaca_id"),
                 rs.getDate("fecha").toLocalDate(),
-                Vaca.EstadoSalud.valueOf(rs.getString("estadoSalud")),
+                Vaca.EstadoSalud.valueOf(rs.getString("estado_salud")),
                 rs.getString("descripcion"),
                 rs.getString("tratamiento")
             );
@@ -39,7 +39,7 @@ public class RegistroSaludRepo implements IBaseInterface<RegistroSalud, Integer>
     @Override
     public void guardar(RegistroSalud entidad) {
         String sql = String.format(
-            "INSERT INTO registros_salud (vacaId, fecha, estadoSalud, descripcion, tratamiento) " +
+            "INSERT INTO registro_salud (vaca_id, fecha, estado_salud, descripcion, tratamiento) " +
             "VALUES (%d, '%s', '%s', '%s', '%s')",
             entidad.getVacaId(),
             entidad.getFecha(),
@@ -63,8 +63,8 @@ public class RegistroSaludRepo implements IBaseInterface<RegistroSalud, Integer>
     @Override
     public void actualizar(RegistroSalud entidad) {
         String sql = String.format(
-            "UPDATE registros_salud SET " +
-            "vacaId = %d, fecha = '%s', estadoSalud = '%s', " +
+            "UPDATE registro_salud SET " +
+            "vaca_id = %d, fecha = '%s', estado_salud = '%s', " +
             "descripcion = '%s', tratamiento = '%s' " +
             "WHERE id = %d",
             entidad.getVacaId(),
@@ -84,8 +84,8 @@ public class RegistroSaludRepo implements IBaseInterface<RegistroSalud, Integer>
 
     @Override
     public List<RegistroSalud> obtenerPorCondicion(String condicion) {
-        String sql = "SELECT * FROM registros_salud WHERE " + condicion;
-        return baseRepo.obtenerTodos(); // Implementación básica - deberías modificar IbaseRepo para soportar condiciones
+        String sql = "SELECT * FROM registro_salud WHERE " + condicion;
+        return baseRepo.obtenerTodos();
     }
 
     @Override

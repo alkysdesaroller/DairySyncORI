@@ -1,11 +1,27 @@
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\com\mycompany\control_produccion\Control_Produccion.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\controller\ProduccionControl.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\DBconection\DatabaseConect.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\model\ProduccionDiaria.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\model\ProduccionServicios.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\model\repositorio\ProduccionRepo.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\model\repositorio\ProduccionRepoImpl.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\model\Vaca.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\view\Componentes\HistorialProduccionPanel.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\view\Componentes\RegistroProduccionForm.java
-C:\Users\alna7\OneDrive\Documents\NetBeansProjects\control_Produccion\src\main\java\view\ProduccionView.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\com\mycompany\control_produccion\Control_Produccion.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\controller\ProduccionControl.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\model\Granja.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\model\ProduccionDiaria.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\model\ProduccionServicios.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\model\repositorio\IBaseInterface.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\model\repositorio\IbaseRepo.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\model\repositorio\ProduccionRepo.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\model\repositorio\ProduccionRepoImpl.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\model\Vaca.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\models\RegistroReproductivo.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\models\RegistroSalud.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\models\Vaca.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\repo\RegistroReproductivoRepo.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\repo\RegistroSaludRepo.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\repo\VacaRepo.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\usecase\RegistroReproductivoServicio.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\usecase\RegistroSaludServicio.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\ModuloDariel\usecase\VacaServicio.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\test\LocalTest.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\test\Main.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\test\VacaSwingTest.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\test\VacaSwingTest2.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\utils\DatabaseConnection.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\view\Componentes\HistorialProduccionPanel.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\view\Componentes\RegistroProduccionForm.java
+C:\Users\darie\OneDrive\Desktop\Java proyects\DairySyncORI\src\main\java\view\ProduccionView.java
