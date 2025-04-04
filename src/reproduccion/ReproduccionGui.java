@@ -208,7 +208,8 @@ public class ReproduccionGui extends JFrame {
     }
     
     /**
-     * Limpia todos los campos del formulario
+
+* Limpia todos los campos del formulario
      */
     private void limpiarFormulario() {
         vacaIdField.setText("");
