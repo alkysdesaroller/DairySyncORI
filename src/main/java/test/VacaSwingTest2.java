@@ -397,7 +397,7 @@ private void buscarVacaPorId() {
     if (idStr != null && !idStr.trim().isEmpty()) {
         try {
             int id = Integer.parseInt(idStr);
-            Optional<Vaca> vacaOpt = vacaServicio.obtenerPorId();
+            Optional<Vaca> vacaOpt = vacaServicio.obtenerPorId(id);
             
             if (vacaOpt.isPresent()) {
                 Vaca vaca = vacaOpt.get();

@@ -5,6 +5,7 @@ import ModuloDariel.models.Vaca;
 import ModuloDariel.repo.RegistroSaludRepo;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -66,4 +67,16 @@ public class RegistroSaludServicio {
     public List<RegistroSalud> obtenerRegistrosPorVaca(int vacaId) {
         return registroSaludRepositorio.obtenerPorCondicion("vacaId = " + vacaId);
     }
+    public List<RegistroSalud> obtenerTodos() {
+    return registroSaludRepositorio.obtenerTodos();
+}
+    public Optional<RegistroSalud> obtenerPorId(int id) {
+    return registroSaludRepositorio.obtenerPorId(id);
+}
+        public void eliminarRegistroSalud(int registroId) {
+        // Elimina el registro de salud utilizando el repositorio
+        registroSaludRepositorio.eliminar(registroId);
+        System.out.println("Registro de salud #" + registroId + " eliminado correctamente.");
+    }
+
 }

@@ -17,10 +17,9 @@ public class VacaServicio {
     
     //Metodos para registrar una vaca
     
-    public Vaca registrarVaca(String raza, int edad, String genealogia, int granjaId)
-    {
-    return registrarVaca(raza, edad, genealogia, granjaId, 0, 0);
-    }
+public Vaca registrarVaca(String raza, int edad, String genealogia, int granjaId) {
+    return registrarVaca(raza, edad, genealogia, granjaId, null, null);
+}
 
 public Vaca registrarVaca(String raza, int edad, String genealogia, int granjaId, 
                          Integer madreId, Integer padreId) {
@@ -62,17 +61,29 @@ public Vaca registrarVaca(String raza, int edad, String genealogia, int granjaId
             vacaRepositorio.actualizar(v);
         });
     }
-    //Metodos para obtener de la ArrayList una vaca
-    public List<Vaca> obtenerTodasLasVacas() {
-        return vacaRepositorio.obtenerTodos();
-    }
-    public Optional<Vaca> obtenerPorId() {
-        return vacaRepositorio.obtenerPorId(Integer.SIZE);
-    }
+public List<Vaca> obtenerTodasLasVacas() {
+    return vacaRepositorio.obtenerTodos();
+}
+public Optional<Vaca> obtenerPorId(int id) {
+    return vacaRepositorio.obtenerPorId(id);
+}
+
 
     private int generarNuevoId() {
         return vacaRepositorio.obtenerTodos().stream()
                 .mapToInt(Vaca::getId)
                 .max().orElse(0) + 1;
     }
+
+public void eliminar(int id) {
+    // Verificar si la vaca existe antes de intentar eliminarla
+    Optional<Vaca> vacaOptional = vacaRepositorio.obtenerPorId(id);
+    if (vacaOptional.isPresent()) {
+        // Eliminar la vaca usando el repositorio
+        vacaRepositorio.eliminar(id);
+        System.out.println("Vaca con ID " + id + " eliminada exitosamente.");
+    } else {
+        System.out.println("No se encontró ninguna vaca con el ID " + id + ". No se puede eliminar.");
+    }
+}
 }
