@@ -68,7 +68,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>$test.Main</mainClass>
+                            <mainClass>$views.GestorVacas</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
