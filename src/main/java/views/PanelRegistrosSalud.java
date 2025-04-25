@@ -97,7 +97,7 @@ public class PanelRegistrosSalud extends JPanel {
                 } 
                 // Estilo para filas normales
                 else {
-                    c.setBackground(new Color(150, 151, 119));
+                    c.setBackground(new Color(0x7E8F4A));
                     c.setForeground(Color.WHITE);
                 }
                 return c;

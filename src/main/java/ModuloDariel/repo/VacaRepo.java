@@ -7,34 +7,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-/**
- *
- * @author darie
- */
+
 public class VacaRepo implements IBaseInterface<Vaca, Integer> {
     private final IbaseRepo<Vaca> baseRepo;
 
     public VacaRepo() {
         String[] columnas = {"id", "raza", "edad", "genealogia", "granjaId", "estado_salud", "estado_reproductivo", "madreId", "padreId"};
-        this.baseRepo = new IbaseRepo<>("Vaca", columnas, new MapperVaca());;
+        this.baseRepo = new IbaseRepo<>("Vaca", columnas, new MapperVaca());
     }
 
-private static class MapperVaca implements IbaseRepo.Mapper<Vaca> {
-    @Override
-    public Vaca map(ResultSet rs) throws SQLException {
-        return new Vaca(
-            rs.getInt("id"),
-            rs.getString("raza"),
-            rs.getInt("edad"),
-            rs.getString("genealogia"),
-            rs.getInt("granjaId"),
-            Vaca.EstadoSalud.valueOf(rs.getString("estado_salud")),
-            Vaca.EstadoReproductivo.valueOf(rs.getString("estado_reproductivo")),
-            rs.getObject("madreId", Integer.class),  // Permite null
-            rs.getObject("padreId", Integer.class)   // Permite null
-        );
+    private static class MapperVaca implements IbaseRepo.Mapper<Vaca> {
+        @Override
+        public Vaca map(ResultSet rs) throws SQLException {
+            return new Vaca(
+                rs.getInt("id"),
+                rs.getString("raza"),
+                rs.getInt("edad"),
+                rs.getString("genealogia"),
+                rs.getInt("granjaId"),
+                Vaca.EstadoSalud.fromString(rs.getString("estado_salud")),
+                rs.getString("estado_reproductivo"), // Cambiado a String
+                rs.getObject("madreId", Integer.class),
+                rs.getObject("padreId", Integer.class)
+            );
+        }
     }
-}
+
     @Override
     public void guardar(Vaca entidad) {
         String sql = String.format(
@@ -45,22 +43,22 @@ private static class MapperVaca implements IbaseRepo.Mapper<Vaca> {
             entidad.getGenealogia(),
             entidad.getGranjaId(),
             entidad.getEstadoSalud().name(),
-            entidad.getEstadoReproductivo().name(),
+            entidad.getEstadoReproductivo(), // Directamente el String
             entidad.getMadreId() != null ? entidad.getMadreId() : "NULL",
             entidad.getPadreId() != null ? entidad.getPadreId() : "NULL"
         );
         baseRepo.guardar(entidad, sql);
         
         String sqlSalud = String.format(
-        "INSERT INTO registros_salud (vaca_id, estado, descripcion, tratamiento, fecha) " +
-        "VALUES (%d, '%s', '%s', '%s', NOW())",
-        entidad.getId(),
-        entidad.getEstadoSalud().name(),
-        "Examen inicial",
-        "Ninguno"
-    );
+            "INSERT INTO registros_salud (vaca_id, estado, descripcion, tratamiento, fecha) " +
+            "VALUES (%d, '%s', '%s', '%s', NOW())",
+            entidad.getId(),
+            entidad.getEstadoSalud().name(),
+            "Examen inicial",
+            "Ninguno"
+        );
+        // Ejecutar sqlSalud si es necesario
     }
-  
 
     @Override
     public Optional<Vaca> obtenerPorId(Integer id) {
@@ -76,14 +74,17 @@ private static class MapperVaca implements IbaseRepo.Mapper<Vaca> {
     public void actualizar(Vaca entidad) {
         String sql = String.format(
             "UPDATE Vaca SET raza = '%s', edad = %d, genealogia = '%s', " +
-            "granjaId = %d, estado_salud = '%s', estado_reproductivo = '%s' " +
+            "granjaId = %d, estado_salud = '%s', estado_reproductivo = '%s', " +
+            "madreId = %s, padreId = %s " +
             "WHERE id = %d",
             entidad.getRaza(),
             entidad.getEdad(),
             entidad.getGenealogia(),
             entidad.getGranjaId(),
             entidad.getEstadoSalud().name(),
-            entidad.getEstadoReproductivo().name(),
+            entidad.getEstadoReproductivo(), // Directamente el String
+            entidad.getMadreId() != null ? entidad.getMadreId() : "NULL",
+            entidad.getPadreId() != null ? entidad.getPadreId() : "NULL",
             entidad.getId()
         );
         baseRepo.actualizar(entidad, sql);
@@ -96,7 +97,6 @@ private static class MapperVaca implements IbaseRepo.Mapper<Vaca> {
 
     @Override
     public List<Vaca> obtenerPorCondicion(String condicion) {
-        
         return null;
     }
 

@@ -4,7 +4,7 @@ package ModuloDariel.models;
  * @author Dariel Capellan
  */
 public class Vaca {
-    //Atributos 
+    // Atributos 
     private int id;
     private String raza;
     private int edad;
@@ -13,7 +13,7 @@ public class Vaca {
     private Integer madreId;
     private Integer padreId;
     private EstadoSalud estadoSalud;
-    private EstadoReproductivo estadoReproductivo;
+    private String estadoReproductivo;
 
     // Enums para definir estados no modificables
     public enum EstadoSalud {
@@ -28,38 +28,20 @@ public class Vaca {
             }
         }
     }
-
-    public enum EstadoReproductivo {
-        NO_CONOCIDO, INSEMINADA, PREÑADA, PARIDA;
-
-        public static EstadoReproductivo fromString(String value) {
-            if (value == null) return NO_CONOCIDO;
-            try {
-                return EstadoReproductivo.valueOf(
-                    value.toUpperCase()
-                         .replace("Ñ", "N")
-                         .replace("É", "E")
-                         .trim()
-                );
-            } catch (IllegalArgumentException e) {
-                return NO_CONOCIDO;
-            }
-        }
-    }
-
     // Constructor
-public Vaca(int id, String raza, int edad, String genealogia, int granjaId, EstadoSalud estadoSalud, EstadoReproductivo estadoReproductivo,Integer madreId, Integer padreId) {
-    this.id = id;
-    this.raza = raza;
-    this.edad = edad;
-    this.genealogia = genealogia;
-    this.granjaId = granjaId;
-    this.estadoSalud = estadoSalud;
-    this.estadoReproductivo = estadoReproductivo;
-    this.madreId = (madreId != null) ? madreId : 0; // o algún valor por defecto    
-    this.padreId = (padreId != null) ? padreId : 0; // o algún valor por defecto 
-}
-
+    public Vaca(int id, String raza, int edad, String genealogia, int granjaId, 
+               EstadoSalud estadoSalud, String estadoReproductivo, 
+               Integer madreId, Integer padreId) {
+        this.id = id;
+        this.raza = raza;
+        this.edad = edad;
+        this.genealogia = genealogia;
+        this.granjaId = granjaId;
+        this.estadoSalud = estadoSalud;
+        this.setEstadoReproductivo(estadoReproductivo); // Usamos el setter para validación
+        this.madreId = (madreId != null) ? madreId : 0;
+        this.padreId = (padreId != null) ? padreId : 0;
+    }
     // Getters y setters
     public int getId() { return id; }
 
@@ -92,9 +74,35 @@ public Vaca(int id, String raza, int edad, String genealogia, int granjaId, Esta
         this.estadoSalud = estadoSalud;
     }
 
-    public EstadoReproductivo getEstadoReproductivo() { return estadoReproductivo; }
-    public void setEstadoReproductivo(EstadoReproductivo estadoReproductivo) {
-        this.estadoReproductivo = estadoReproductivo;
+    public String getEstadoReproductivo() { 
+        return estadoReproductivo; 
+    }
+
+    public void setEstadoReproductivo(String estadoReproductivo) {
+        // Validamos que el estado sea uno de los permitidos
+        if (estadoReproductivo != null) {
+            String normalized = estadoReproductivo.toUpperCase()
+                .replace("Ñ", "N")
+                .replace("É", "E")
+                .trim();
+            
+            if (normalized.matches("NO_CONOCIDO|INSEMINADA|PREENADA|PARIDA")) {
+                this.estadoReproductivo = normalized;
+            } else {
+                this.estadoReproductivo = "NO_CONOCIDO";
+                System.err.println("Estado reproductivo no válido: " + estadoReproductivo);
+            }
+        } else {
+            this.estadoReproductivo = "NO_CONOCIDO";
+        }
+    }
+
+    public static String convertirEstadoReproductivo(String estado) {
+        if (estado == null) return "NO_CONOCIDO";
+        return estado.toUpperCase()
+                   .replace("Ñ", "N")
+                   .replace("É", "E")
+                   .trim();
     }
     
     //Metodo para mostrar la info
@@ -107,5 +115,4 @@ public Vaca(int id, String raza, int edad, String genealogia, int granjaId, Esta
                 ", Estado de salud: " + estadoSalud +
                 ", Estado reproductivo: " + estadoReproductivo);
     }
-
 }

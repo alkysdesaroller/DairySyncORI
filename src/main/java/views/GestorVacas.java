@@ -112,7 +112,7 @@ public class GestorVacas extends JFrame {
                     c.setBackground(new Color(93, 110, 82));
                     c.setForeground(Color.WHITE);
                 } else { // Filas normales
-                    c.setBackground(new Color(150, 151, 119));
+                    c.setBackground(new Color(0x7E8F4A));
                     c.setForeground(Color.WHITE);
                 }
                 return c;

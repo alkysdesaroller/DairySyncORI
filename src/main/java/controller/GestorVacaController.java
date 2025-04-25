@@ -32,245 +32,312 @@ public class GestorVacaController {
      * Muestra diálogo para agregar nueva vaca
      * @param parent Ventana padre para el diálogo
      */
-    public void agregarVaca(JFrame parent) {
-        createStyledDialog(parent, "Agregar Nueva Vaca", 500, 400, dialog -> {
-            JPanel centerPanel = buildFormPanel(6);
-            
-            // Campos del formulario
-            JTextField razaField = new JTextField(25);
-            JTextField edadField = new JTextField(25);
-            JTextField genealogiaField = new JTextField(25);
-            JTextField granjaIdField = new JTextField(25);
-            JTextField madreIdField = new JTextField(25);
-            JTextField padreIdField = new JTextField(25);
+public void agregarVaca(JFrame parent) {
+    createStyledDialog(parent, "Agregar Nueva Vaca", 500, 400, dialog -> {
+        JPanel centerPanel = buildFormPanel(6);
 
-            // Configurar etiquetas y campos
-            centerPanel.add(new JLabel("Raza:"));
-            centerPanel.add(razaField);
-            centerPanel.add(new JLabel("Edad:"));
-            centerPanel.add(edadField);
-            centerPanel.add(new JLabel("Genealogía:"));
-            centerPanel.add(genealogiaField);
-            centerPanel.add(new JLabel("Granja ID:"));
-            centerPanel.add(granjaIdField);
-            centerPanel.add(new JLabel("Madre ID (opcional):"));
-            centerPanel.add(madreIdField);
-            centerPanel.add(new JLabel("Padre ID (opcional):"));
-            centerPanel.add(padreIdField);
+        // Campos del formulario
+        JTextField razaField = new JTextField(25);
+        JTextField edadField = new JTextField(25);
+        JTextField genealogiaField = new JTextField(25);
+        JTextField granjaIdField = new JTextField(25);
+        JTextField madreIdField = new JTextField(25);
+        JTextField padreIdField = new JTextField(25);
 
-            // Botón de confirmación
-            JButton confirmButton = new JButton("Guardar");
-            styleLargeButton(confirmButton);
-            confirmButton.addActionListener(e -> {
-                try {
-                    // Validar y obtener datos
-                    String raza = razaField.getText();
-                    int edad = Integer.parseInt(edadField.getText());
-                    String genealogia = genealogiaField.getText();
-                    int granjaId = Integer.parseInt(granjaIdField.getText());
-                    Integer madreId = madreIdField.getText().isEmpty() ? null : Integer.parseInt(madreIdField.getText());
-                    Integer padreId = padreIdField.getText().isEmpty() ? null : Integer.parseInt(padreIdField.getText());
+        // Configurar etiquetas y campos
+        JLabel razaLabel = new JLabel("Raza:");
+        razaLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(razaLabel);
+        centerPanel.add(razaField);
+        razaField.setForeground(Color.BLACK); // Texto en negro
 
-                    // Registrar nueva vaca
-                    vacaServicio.registrarVaca(raza, edad, genealogia, granjaId, madreId, padreId);
-                    JOptionPane.showMessageDialog(dialog, "Vaca registrada exitosamente.");
+        JLabel edadLabel = new JLabel("Edad:");
+        edadLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(edadLabel);
+        centerPanel.add(edadField);
+        edadField.setForeground(Color.BLACK); // Texto en negro
 
-                    // Actualizar vista si es necesario
-                    if (parent instanceof views.GestorVacas) {
-                        ((views.GestorVacas) parent).refrescarTabla();
-                    }
-                    dialog.dispose();
-                } catch (NumberFormatException ex) {
-                    showError(dialog, "Por favor, ingrese valores válidos.");
+        JLabel genealogiaLabel = new JLabel("Genealogía:");
+        genealogiaLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(genealogiaLabel);
+        centerPanel.add(genealogiaField);
+        genealogiaField.setForeground(Color.BLACK); // Texto en negro
+
+        JLabel granjaIdLabel = new JLabel("Granja ID:");
+        granjaIdLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(granjaIdLabel);
+        centerPanel.add(granjaIdField);
+        granjaIdField.setForeground(Color.BLACK); // Texto en negro
+
+        JLabel madreIdLabel = new JLabel("Madre ID (opcional):");
+        madreIdLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(madreIdLabel);
+        centerPanel.add(madreIdField);
+        madreIdField.setForeground(Color.BLACK); // Texto en negro
+
+        JLabel padreIdLabel = new JLabel("Padre ID (opcional):");
+        padreIdLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(padreIdLabel);
+        centerPanel.add(padreIdField);
+        padreIdField.setForeground(Color.BLACK); // Texto en negro
+
+        // Botón de confirmación
+        JButton confirmButton = new JButton("Guardar");
+        styleLargeButton(confirmButton);
+        confirmButton.setForeground(Color.BLACK); // Texto en negro
+        confirmButton.addActionListener(e -> {
+            try {
+                // Validar y obtener datos
+                String raza = razaField.getText();
+                int edad = Integer.parseInt(edadField.getText());
+                String genealogia = genealogiaField.getText();
+                int granjaId = Integer.parseInt(granjaIdField.getText());
+                Integer madreId = madreIdField.getText().isEmpty() ? null : Integer.parseInt(madreIdField.getText());
+                Integer padreId = padreIdField.getText().isEmpty() ? null : Integer.parseInt(padreIdField.getText());
+
+                // Registrar nueva vaca
+                vacaServicio.registrarVaca(raza, edad, genealogia, granjaId, madreId, padreId);
+                JOptionPane.showMessageDialog(dialog, "Vaca registrada exitosamente.");
+
+                // Actualizar vista si es necesario
+                if (parent instanceof views.GestorVacas) {
+                    ((views.GestorVacas) parent).refrescarTabla();
                 }
-            });
-
-            addBottomButtons(dialog, confirmButton);
-            dialog.add(centerPanel, BorderLayout.CENTER);
+                dialog.dispose();
+            } catch (NumberFormatException ex) {
+                showError(dialog, "Por favor, ingrese valores válidos.");
+            }
         });
-    }
 
-    /**
-     * Muestra diálogo para editar vaca existente
-     * @param parent Ventana padre para el diálogo
-     */
-    public void editarVaca(JFrame parent) {
-        createStyledDialog(parent, "Editar Vaca", 500, 400, dialog -> {
-            JPanel centerPanel = buildFormPanel(7);
-            
-            // Campos del formulario
-            JTextField idField = new JTextField(25);
-            JTextField razaField = new JTextField(25);
-            JTextField edadField = new JTextField(25);
-            JTextField genealogiaField = new JTextField(25);
-            JTextField granjaIdField = new JTextField(25);
-            JTextField madreIdField = new JTextField(25);
-            JTextField padreIdField = new JTextField(25);
+        addBottomButtons(dialog, confirmButton);
+        dialog.add(centerPanel, BorderLayout.CENTER);
+    });
+}
 
-            // Configurar etiquetas y campos
-            centerPanel.add(new JLabel("ID de la vaca:"));
-            centerPanel.add(idField);
-            centerPanel.add(new JLabel("Raza:"));
-            centerPanel.add(razaField);
-            centerPanel.add(new JLabel("Edad:"));
-            centerPanel.add(edadField);
-            centerPanel.add(new JLabel("Genealogía:"));
-            centerPanel.add(genealogiaField);
-            centerPanel.add(new JLabel("Granja ID:"));
-            centerPanel.add(granjaIdField);
-            centerPanel.add(new JLabel("Madre ID (opcional):"));
-            centerPanel.add(madreIdField);
-            centerPanel.add(new JLabel("Padre ID (opcional):"));
-            centerPanel.add(padreIdField);
+public void editarVaca(JFrame parent) {
+    createStyledDialog(parent, "Editar Vaca", 500, 400, dialog -> {
+        JPanel centerPanel = buildFormPanel(7);
 
-            // Botón de confirmación
-            JButton confirmButton = new JButton("Guardar Cambios");
-            styleLargeButton(confirmButton);
-            confirmButton.addActionListener(e -> {
-                try {
-                    // Validar ID
-                    String idText = idField.getText().trim();
-                    if (idText.isEmpty()) {
-                        showError(dialog, "Por favor, ingrese un ID válido.");
-                        return;
-                    }
+        // Campos del formulario
+        JTextField idField = new JTextField(25);
+        JTextField razaField = new JTextField(25);
+        JTextField edadField = new JTextField(25);
+        JTextField genealogiaField = new JTextField(25);
+        JTextField granjaIdField = new JTextField(25);
+        JTextField madreIdField = new JTextField(25);
+        JTextField padreIdField = new JTextField(25);
 
-                    // Obtener datos del formulario
-                    int id = Integer.parseInt(idText);
-                    String raza = razaField.getText();
-                    int edad = Integer.parseInt(edadField.getText());
-                    String genealogia = genealogiaField.getText();
-                    int granjaId = Integer.parseInt(granjaIdField.getText());
-                    Integer madreId = madreIdField.getText().isEmpty() ? null : Integer.parseInt(madreIdField.getText());
-                    Integer padreId = padreIdField.getText().isEmpty() ? null : Integer.parseInt(padreIdField.getText());
+        // Configurar etiquetas y campos
+        JLabel idLabel = new JLabel("ID de la vaca:");
+        idLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(idLabel);
+        centerPanel.add(idField);
+        idField.setForeground(Color.BLACK); // Texto en negro
 
-                    // Buscar y actualizar vaca
-                    Optional<Vaca> vacaOptional = vacaServicio.obtenerPorId(id);
-                    if (vacaOptional.isPresent()) {
-                        Vaca vaca = vacaOptional.get();
-                        // Actualizar datos básicos
-                        vaca.setRaza(raza);
-                        vaca.setEdad(edad);
-                        vaca.setGenealogia(genealogia);
-                        vaca.setGranjaId(granjaId);
-                        vaca.setMadreId(madreId);
-                        vaca.setPadreId(padreId);
+        JLabel razaLabel = new JLabel("Raza:");
+        razaLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(razaLabel);
+        centerPanel.add(razaField);
+        razaField.setForeground(Color.BLACK); // Texto en negro
 
-                        // Mantener estados actuales
-                        vacaServicio.actualizarEstadoReproductivo(id, vaca.getEstadoReproductivo());
-                        vacaServicio.actualizarEstadoSalud(id, vaca.getEstadoSalud(), "Actualización de datos", "Ninguno");
+        JLabel edadLabel = new JLabel("Edad:");
+        edadLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(edadLabel);
+        centerPanel.add(edadField);
+        edadField.setForeground(Color.BLACK); // Texto en negro
 
-                        JOptionPane.showMessageDialog(dialog, "Vaca actualizada exitosamente.");
-                    } else {
-                        showError(dialog, "No se encontró ninguna vaca con el ID proporcionado.");
-                    }
-                    dialog.dispose();
-                } catch (NumberFormatException ex) {
-                    showError(dialog, "Por favor, ingrese valores válidos.");
-                }
-            });
+        JLabel genealogiaLabel = new JLabel("Genealogía:");
+        genealogiaLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(genealogiaLabel);
+        centerPanel.add(genealogiaField);
+        genealogiaField.setForeground(Color.BLACK); // Texto en negro
 
-            addBottomButtons(dialog, confirmButton);
-            dialog.add(centerPanel, BorderLayout.CENTER);
-        });
-    }
+        JLabel granjaIdLabel = new JLabel("Granja ID:");
+        granjaIdLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(granjaIdLabel);
+        centerPanel.add(granjaIdField);
+        granjaIdField.setForeground(Color.BLACK); // Texto en negro
 
-    /**
-     * Muestra diálogo para actualizar estados de salud/reproductivo
-     * @param parent Ventana padre para el diálogo
-     */
-    public void actualizarEstado(JFrame parent) {
-        createStyledDialog(parent, "Actualizar Estado", 500, 400, dialog -> {
-            JPanel centerPanel = buildFormPanel(5);
-            
-            // Campos del formulario
-            JTextField idField = new JTextField(25);
-            JComboBox<String> estadoSaludBox = new JComboBox<>(new String[]{"SANA", "ENFERMA", "EN_OBSERVACION"});
-            JComboBox<String> estadoReproductivoBox = new JComboBox<>(new String[]{"NO_CONOCIDO", "INSEMINADA", "PREÑADA", "PARIDA"});
-            JTextField descripcionField = new JTextField(25);
-            JTextField tratamientoField = new JTextField(25);
+        JLabel madreIdLabel = new JLabel("Madre ID (opcional):");
+        madreIdLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(madreIdLabel);
+        centerPanel.add(madreIdField);
+        madreIdField.setForeground(Color.BLACK); // Texto en negro
 
-            // Configurar etiquetas y campos
-            centerPanel.add(new JLabel("ID de la vaca:"));
-            centerPanel.add(idField);
-            centerPanel.add(new JLabel("Estado de Salud:"));
-            centerPanel.add(estadoSaludBox);
-            centerPanel.add(new JLabel("Estado Reproductivo:"));
-            centerPanel.add(estadoReproductivoBox);
-            centerPanel.add(new JLabel("Descripción:"));
-            centerPanel.add(descripcionField);
-            centerPanel.add(new JLabel("Tratamiento:"));
-            centerPanel.add(tratamientoField);
+        JLabel padreIdLabel = new JLabel("Padre ID (opcional):");
+        padreIdLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(padreIdLabel);
+        centerPanel.add(padreIdField);
+        padreIdField.setForeground(Color.BLACK); // Texto en negro
 
-            // Botón de confirmación
-            JButton confirmButton = new JButton("Actualizar Estado");
-            styleLargeButton(confirmButton);
-            confirmButton.addActionListener(e -> {
-                try {
-                    // Obtener y validar datos
-                    int id = Integer.parseInt(idField.getText());
-                    String estadoSaludStr = (String) estadoSaludBox.getSelectedItem();
-                    String estadoReproductivoStr = (String) estadoReproductivoBox.getSelectedItem();
-                    String descripcion = descripcionField.getText();
-                    String tratamiento = tratamientoField.getText();
-
-                    // Convertir a enums
-                    Vaca.EstadoSalud estadoSalud = Vaca.EstadoSalud.valueOf(estadoSaludStr);
-                    Vaca.EstadoReproductivo estadoReproductivo = Vaca.EstadoReproductivo.valueOf(estadoReproductivoStr);
-
-                    // Actualizar estados
-                    vacaServicio.actualizarEstadoSalud(id, estadoSalud, descripcion, tratamiento);
-                    vacaServicio.actualizarEstadoReproductivo(id, estadoReproductivo);
-
-                    JOptionPane.showMessageDialog(dialog, "Estado actualizado exitosamente.");
-                    dialog.dispose();
-                } catch (NumberFormatException ex) {
+        // Botón de confirmación
+        JButton confirmButton = new JButton("Guardar Cambios");
+        styleLargeButton(confirmButton);
+        confirmButton.setForeground(Color.BLACK); // Texto en negro
+        confirmButton.addActionListener(e -> {
+            try {
+                // Validar ID
+                String idText = idField.getText().trim();
+                if (idText.isEmpty()) {
                     showError(dialog, "Por favor, ingrese un ID válido.");
+                    return;
                 }
-            });
 
-            addBottomButtons(dialog, confirmButton);
-            dialog.add(centerPanel, BorderLayout.CENTER);
-        });
-    }
+                // Obtener datos del formulario
+                int id = Integer.parseInt(idText);
+                String raza = razaField.getText();
+                int edad = Integer.parseInt(edadField.getText());
+                String genealogia = genealogiaField.getText();
+                int granjaId = Integer.parseInt(granjaIdField.getText());
+                Integer madreId = madreIdField.getText().isEmpty() ? null : Integer.parseInt(madreIdField.getText());
+                Integer padreId = padreIdField.getText().isEmpty() ? null : Integer.parseInt(padreIdField.getText());
 
-    /**
-     * Muestra diálogo para eliminar vaca
-     * @param parent Ventana padre para el diálogo
-     */
-    public void eliminarVaca(JFrame parent) {
-        createStyledDialog(parent, "Eliminar Vaca", 400, 250, dialog -> {
-            JPanel centerPanel = buildFormPanel(2);
-            
-            // Campos del formulario
-            JTextField idField = new JTextField(25);
-            JTextField motivoField = new JTextField(25);
+                // Buscar y actualizar vaca
+                Optional<Vaca> vacaOptional = vacaServicio.obtenerPorId(id);
+                if (vacaOptional.isPresent()) {
+                    Vaca vaca = vacaOptional.get();
+                    // Actualizar datos básicos
+                    vaca.setRaza(raza);
+                    vaca.setEdad(edad);
+                    vaca.setGenealogia(genealogia);
+                    vaca.setGranjaId(granjaId);
+                    vaca.setMadreId(madreId);
+                    vaca.setPadreId(padreId);
 
-            // Configurar etiquetas y campos
-            centerPanel.add(new JLabel("ID de la vaca:"));
-            centerPanel.add(idField);
-            centerPanel.add(new JLabel("Motivo (opcional):"));
-            centerPanel.add(motivoField);
+                    // Mantener estados actuales
+                    vacaServicio.actualizarEstadoReproductivo(id, vaca.getEstadoReproductivo());
+                    vacaServicio.actualizarEstadoSalud(id, vaca.getEstadoSalud(), "Actualización de datos", "Ninguno");
 
-            // Botón de confirmación
-            JButton confirmButton = new JButton("Eliminar");
-            styleLargeButton(confirmButton);
-            confirmButton.addActionListener(e -> {
-                try {
-                    // Eliminar vaca por ID
-                    int id = Integer.parseInt(idField.getText());
-                    vacaServicio.eliminar(id);
-                    JOptionPane.showMessageDialog(dialog, "Vaca eliminada exitosamente.");
-                    dialog.dispose();
-                } catch (NumberFormatException ex) {
-                    showError(dialog, "Por favor, ingrese un ID válido.");
+                    JOptionPane.showMessageDialog(dialog, "Vaca actualizada exitosamente.");
+                } else {
+                    showError(dialog, "No se encontró ninguna vaca con el ID proporcionado.");
                 }
-            });
-
-            addBottomButtons(dialog, confirmButton);
-            dialog.add(centerPanel, BorderLayout.CENTER);
+                dialog.dispose();
+            } catch (NumberFormatException ex) {
+                showError(dialog, "Por favor, ingrese valores válidos.");
+            }
         });
-    }
+
+        addBottomButtons(dialog, confirmButton);
+        dialog.add(centerPanel, BorderLayout.CENTER);
+    });
+}
+
+public void actualizarEstado(JFrame parent) {
+    createStyledDialog(parent, "Actualizar Estado", 500, 400, dialog -> {
+        JPanel centerPanel = buildFormPanel(5);
+
+        // Campos del formulario
+        JTextField idField = new JTextField(25);
+        JComboBox<String> estadoSaludBox = new JComboBox<>(new String[]{"SANA", "ENFERMA", "EN_OBSERVACION"});
+        JComboBox<String> estadoReproductivoBox = new JComboBox<>(new String[]{"NO_CONOCIDO", "INSEMINADA", "PREÑADA", "PARIDA"});
+        JTextField descripcionField = new JTextField(25);
+        JTextField tratamientoField = new JTextField(25);
+
+        // Configurar etiquetas y campos
+        JLabel idLabel = new JLabel("ID de la vaca:");
+        idLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(idLabel);
+        centerPanel.add(idField);
+        idField.setForeground(Color.BLACK); // Texto en negro
+
+        JLabel estadoSaludLabel = new JLabel("Estado de Salud:");
+        estadoSaludLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(estadoSaludLabel);
+        centerPanel.add(estadoSaludBox);
+
+        JLabel estadoReproductivoLabel = new JLabel("Estado Reproductivo:");
+        estadoReproductivoLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(estadoReproductivoLabel);
+        centerPanel.add(estadoReproductivoBox);
+
+        JLabel descripcionLabel = new JLabel("Descripción:");
+        descripcionLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(descripcionLabel);
+        centerPanel.add(descripcionField);
+        descripcionField.setForeground(Color.BLACK); // Texto en negro
+
+        JLabel tratamientoLabel = new JLabel("Tratamiento:");
+        tratamientoLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(tratamientoLabel);
+        centerPanel.add(tratamientoField);
+        tratamientoField.setForeground(Color.BLACK); // Texto en negro
+
+        // Botón de confirmación
+        JButton confirmButton = new JButton("Actualizar Estado");
+        styleLargeButton(confirmButton);
+        confirmButton.setForeground(Color.BLACK); // Texto en negro
+        confirmButton.addActionListener(e -> {
+            try {
+                int id = Integer.parseInt(idField.getText());
+                String estadoSaludStr = (String) estadoSaludBox.getSelectedItem();
+                String estadoReproductivoStr = (String) estadoReproductivoBox.getSelectedItem();
+                String descripcion = descripcionField.getText();
+                String tratamiento = tratamientoField.getText();
+
+                // Convertir estado de salud a Enum
+                Vaca.EstadoSalud estadoSalud = Vaca.EstadoSalud.fromString(estadoSaludStr);
+                
+                // Usar directamente el string normalizado para el estado reproductivo
+                String estadoReproductivo = Vaca.convertirEstadoReproductivo(estadoReproductivoStr);
+
+                vacaServicio.actualizarEstadoSalud(id, estadoSalud, descripcion, tratamiento);
+                vacaServicio.actualizarEstadoReproductivo(id, estadoReproductivo);
+
+                JOptionPane.showMessageDialog(dialog, "Estado actualizado exitosamente.");
+                dialog.dispose();
+            } catch (NumberFormatException ex) {
+                showError(dialog, "Por favor, ingrese un ID válido.");
+            }
+        });
+
+        addBottomButtons(dialog, confirmButton);
+        dialog.add(centerPanel, BorderLayout.CENTER);
+    });
+}
+
+public void eliminarVaca(JFrame parent) {
+    createStyledDialog(parent, "Eliminar Vaca", 400, 250, dialog -> {
+        JPanel centerPanel = buildFormPanel(2);
+
+        // Campos del formulario
+        JTextField idField = new JTextField(25);
+        JTextField motivoField = new JTextField(25);
+
+        // Configurar etiquetas y campos
+        JLabel idLabel = new JLabel("ID de la vaca:");
+        idLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(idLabel);
+        centerPanel.add(idField);
+        idField.setForeground(Color.BLACK); // Texto en negro
+
+        JLabel motivoLabel = new JLabel("Motivo (opcional):");
+        motivoLabel.setForeground(Color.BLACK); // Texto en negro
+        centerPanel.add(motivoLabel);
+        centerPanel.add(motivoField);
+        motivoField.setForeground(Color.BLACK); // Texto en negro
+
+        // Botón de confirmación
+        JButton confirmButton = new JButton("Eliminar");
+        styleLargeButton(confirmButton);
+        confirmButton.setForeground(Color.BLACK); // Texto en negro
+        confirmButton.addActionListener(e -> {
+            try {
+                // Eliminar vaca por ID
+                int id = Integer.parseInt(idField.getText());
+                vacaServicio.eliminar(id);
+                JOptionPane.showMessageDialog(dialog, "Vaca eliminada exitosamente.");
+                dialog.dispose();
+            } catch (NumberFormatException ex) {
+                showError(dialog, "Por favor, ingrese un ID válido.");
+            }
+        });
+
+        addBottomButtons(dialog, confirmButton);
+        dialog.add(centerPanel, BorderLayout.CENTER);
+    });
+}
+
 
     /**
      * Crea un diálogo estilizado
@@ -288,18 +355,44 @@ public class GestorVacaController {
 
         // Barra superior del diálogo
         JPanel topBar = new JPanel();
-        topBar.setBackground(new Color(108, 67, 37));
+        topBar.setBackground(new Color(108, 67, 37)); // Color marrón oscuro
         topBar.setPreferredSize(new Dimension(dialog.getWidth(), 45));
         JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Color.BLACK);
         topBar.add(titleLabel);
 
         dialog.add(topBar, BorderLayout.NORTH);
+
+        // Configurar los componentes del contenido
         setupContent.accept(dialog);
+
+        // Estilizar todos los textos dentro del diálogo con el mismo color que la barra superior
+        Color labelColor = new Color(0x000000); // Color negro para los textos
+        Component[] components = dialog.getComponents();
+        for (Component component : components) {
+            if (component instanceof JPanel) {
+                JPanel panel = (JPanel) component;
+                for (Component subComponent : panel.getComponents()) {
+                    if (subComponent instanceof JLabel) {
+                        JLabel label = (JLabel) subComponent;
+                        label.setFont(new Font("Segoe UI", Font.BOLD, 14));  // Negritas
+                        label.setForeground(Color.BLACK);  // Aplicar color al texto de las etiquetas
+                    }
+                    if (subComponent instanceof JTextField) {
+                        JTextField textField = (JTextField) subComponent;
+                        textField.setForeground(Color.BLACK);;  // Aplicar color al texto de los campos de texto
+                    }
+                    if (subComponent instanceof JButton) {
+                        JButton button = (JButton) subComponent;
+                        button.setForeground(Color.WHITE);  // Aplicar color al texto de los botones
+                    }
+                }
+            }
+        }
+
         dialog.setVisible(true);
     }
-
     /**
      * Construye un panel de formulario con grid layout
      * @param rows Número de filas del formulario
@@ -321,7 +414,8 @@ public class GestorVacaController {
         JButton cancelButton = new JButton("Cancelar");
         styleLargeButton(cancelButton);
         cancelButton.addActionListener(e -> dialog.dispose());
-
+        
+        cancelButton.setForeground(Color.BLACK);
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         bottomPanel.setBackground(new Color(108, 67, 37));
         bottomPanel.add(confirmButton);

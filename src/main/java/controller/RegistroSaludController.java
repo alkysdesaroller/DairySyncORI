@@ -211,7 +211,7 @@ public class RegistroSaludController {
 
     /**
      * Crea un campo de texto estilizado
-     * @param columns Ancho en columnas
+     * @param columns Ancho en columnasz
      * @return Campo de texto configurado
      */
     private JTextField createStyledTextField(int columns) {
@@ -300,7 +300,7 @@ public class RegistroSaludController {
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        button.setForeground(Color.WHITE);
+        button.setForeground(Color.BLACK);
         button.setBackground(new Color(108, 67, 37));
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createCompoundBorder(
