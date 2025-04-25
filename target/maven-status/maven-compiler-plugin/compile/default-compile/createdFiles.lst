@@ -1,10 +1,12 @@
 views\Test$2.class
+model\Vaca.class
 ModuloDariel\usecase\RegistroSaludServicio.class
 model\repositorio\IBaseInterface.class
 model\repositorio\IbaseRepo.class
 views\GestorVacas$1.class
 ModuloDariel\repo\RegistroSaludRepo$MapperRegistroSalud.class
 tabs\TabbedPaneCustom.class
+model\Granja.class
 model\repositorio\IbaseRepo$Mapper.class
 views\GestorVacas.class
 views\Test$1.class
@@ -15,6 +17,7 @@ ModuloDariel\models\RegistroSalud.class
 controller\RegistroSaludController.class
 ModuloDariel\models\Vaca.class
 views\PanelRegistrosSalud$1.class
+com\mycompany\control_produccion\Control_Produccion.class
 ModuloDariel\usecase\VacaServicio.class
 views\Test.class
 ModuloDariel\models\Vaca$EstadoSalud.class
