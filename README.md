@@ -11,21 +11,21 @@ Jose Fabian
 Características principales
 🐄 Gestión de Inventario Animal
 
-Registro completo de genealogía y características de cada vaca.
-Seguimiento del ciclo de vida completo: nacimiento, desarrollo, producción y retiro.
-Documentación de información sanitaria y tratamientos veterinarios.
+-Registro completo de genealogía y características de cada vaca.
+-Seguimiento del ciclo de vida completo: nacimiento, desarrollo, producción y retiro.
+-Documentación de información sanitaria y tratamientos veterinarios.
 
 🥛 Monitoreo de Producción Lechera
 
-Registro diario de producción individual por vaca.
-Análisis de rendimiento: picos de producción, rendimiento promedio, fluctuaciones.
-Detección automática de anomalías en patrones productivos.
+-Registro diario de producción individual por vaca.
+-Análisis de rendimiento: picos de producción, rendimiento promedio, fluctuaciones.
+-Detección automática de anomalías en patrones productivos.
 
 🌱 Control de Alimentación
 
-Registro de dietas y consumo de alimento.
-Correlación entre alimentación y rendimiento productivo.
-Optimización de raciones según etapa productiva.
+-Registro de dietas y consumo de alimento.
+-Correlación entre alimentación y rendimiento productivo.
+-Optimización de raciones según etapa productiva.
 
 🔄 Manejo Reproductivo Avanzado
 
